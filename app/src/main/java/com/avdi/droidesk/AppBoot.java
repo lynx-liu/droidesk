@@ -7,8 +7,12 @@ public class AppBoot extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Intent intent = new Intent(Intent.ACTION_RUN);
-        intent.setClass(this, DeskService.class);
-        startService(intent);
+
+        Intent intent = new Intent(this, DeskService.class);
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            startForegroundService(intent);
+        } else {
+            startService(intent);
+        }
     }
 }
