@@ -23,6 +23,13 @@ public class ForwardUtils extends Thread{
     private static final String SSH_KEY_FILE = "id_ed25519";
     private final Context context;
 
+    // 当前使用的远程端口（设备码），供 UI 显示
+    private static int currentPort = -1;
+
+    public static int getCurrentPort() {
+        return currentPort;
+    }
+
     public ForwardUtils(Context context) {
         super();
         this.context = context;
@@ -42,6 +49,7 @@ public class ForwardUtils extends Thread{
         Log.d("llx", "remotePort=" + remotePort);
         if(remotePort<1) return;
 
+        currentPort = remotePort;
         runSSHForward(context, remotePort);
     }
 
